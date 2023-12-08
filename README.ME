@@ -1,0 +1,83 @@
+Neste trabalho foi utilizado um laptop MacBook Pro 2022 com as seguintes configurações:
+    - Processador Chip Apple M2 (2022)
+    - Memória RAM 8gb 
+    - SO MacOS Sonoma 14.0
+
+No experimento 1, o código Java SEM Threads apresentou a seguinte resposta no terminal de saída:
+
+~~~ 
+katley@MacBook-Pro-de-Katley Trabalho com Threads %  /usr/bin/env /Library/Java/JavaVirt
+ualMachines/temurin-17.jdk/Contents/Home/bin/java -XX:+ShowCodeDetailsInExceptionMessage
+s -cp /Users/katley/Library/Application\ Support/Code/User/workspaceStorage/b43487f34cfd
+379e3b1eef5bddf3c672/redhat.java/jdt_ws/Trabalho\ com\ Threads_1e89a0e3/bin Sem_thread1 
+
+Levou 0,0302 segundos para processar.
+Levou 0,0231 segundos para processar.
+Levou 0,0229 segundos para processar.
+Levou 0,0222 segundos para processar.
+Levou 0,0227 segundos para processar.
+~~~
+
+_________________________________________________________________________________
+
+
+No experimento 1, o código Java COM Threads apresentou a seguinte resposta no terminal de saída:
+
+~~~
+katley@MacBook-Pro-de-Katley Trabalho com Threads %  /usr/bin/env /Library/Java/JavaVirt
+ualMachines/temurin-17.jdk/Contents/Home/bin/java -XX:+ShowCodeDetailsInExceptionMessage
+s -cp /Users/katley/Library/Application\ Support/Code/User/workspaceStorage/b43487f34cfd
+379e3b1eef5bddf3c672/redhat.java/jdt_ws/Trabalho\ com\ Threads_1e89a0e3/bin Com_thread1 
+
+Tempo de execução com 5 threads: 0,0330 segundos
+Tempo de execução com 5 threads: 0,0140 segundos
+Tempo de execução com 5 threads: 0,0100 segundos
+Tempo de execução com 5 threads: 0,0110 segundos
+Tempo de execução com 5 threads: 0,0150 segundos
+~~~ 
+
+RESULTADO DA COMPILAÇÃ0: Neste caso, o código mostra que as execução contendo 
+5 threads é mais rápida. O uso de Threads é como um grupo de pessoas operando 
+na mesma tarefa. O formato de trabalho a ser seguido vai sendo otimizado conforme
+o processo vai evoluindo e, consequentemente, o sendo otimizado. Neste caso,
+percebemos que até a Thread de número 3 o processo está sendo otimizado mas, 
+a medida em que evolui o processo, o tempo de execução evolui. Pode-se explicar 
+o fato por diversos fatores, como o fenomeno Just In Time, a carga de sistema 
+ou mesmo o fato da ocupação de cache e hierarquia de execução.
+
+
+
+_________________________________________________________________________________
+
+
+No replace de arquivos, o resultado apresentado foi:
+
+~~~
+katley@MacBook-Pro-de-Katley Trabalho com Threads %  /usr/bin/env /Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home/bin
+/java -XX:+ShowCodeDetailsInExceptionMessages -cp /Users/katley/Library/Application\ Support/Code/User/workspaceStorage/b43487f34cfd
+379e3b1eef5bddf3c672/redhat.java/jdt_ws/Trabalho\ com\ Threads_1e89a0e3/bin Com_thread2 
+Levou 1,0810 segundos para processar.
+Levou 1,0370 segundos para processar.
+Levou 0,9180 segundos para processar.
+Levou 0,8460 segundos para processar.
+Levou 0,7530 segundos para processar.
+~~~
+
+RESULTADO DA COMPILAÇÃ0: Neste caso, o código mostra que as execução contendo as Threads 
+evolui a medida que o processo avança e o tempo diminui. Neste caso, a redução do tempo 
+se dá devido ao aumento de número de Threads. Ao contrário do primeiro experimento, mostra
+que neste caso, as Threads deixam de "sobrecarregar" o cache, sendo causada por eficiência 
+vinda da máquina virtual de Java.
+
+
+
+
+
+
+
+
+
+
+
+
+
