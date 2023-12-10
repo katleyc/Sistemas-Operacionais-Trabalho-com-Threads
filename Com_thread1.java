@@ -1,78 +1,72 @@
-import java.util.Random;
+public class Sem_thread1 {
 
-class Com_thread1 {
-
-    // Função para criar uma matriz aleatória
     /**
      * @param linhas
      * @param colunas
      * @return
      */
-    public static double[][] inicializacao(int linhas, int colunas) {
-        final Random random = new Random();
-        double[][] matriz = new double[linhas][colunas];
-
+    public static int[][] inicializacaoFixa(int linhas, int colunas) {
+        int[][] matriz = new int[linhas][colunas];
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunas; j++) {
-                matriz[i][j] = random.nextDouble();
+                matriz[i][j] = i + j * colunas;
             }
         }
-
         return matriz;
     }
 
-    // Função para multiplicar duas matrizes
-    public static void multMatriz(double[][] matrizA, double[][] matrizB, int linhaInicio, int linhaFim, double[][] matrizR) {
-        for (int i = linhaInicio; i < linhaFim; i++) {
-            for (int j = 0; j < matrizB[0].length; j++) {
-                double sum = 0.0;
-                for (int k = 0; k < matrizA[0].length; k++) {
-                    sum += matrizA[i][k] * matrizB[k][j];
-                }
-                matrizR[i][j] = sum;
+    public static int[][] inicializacao(int linhas, int colunas, int valor) {
+        int[][] matriz = new int[linhas][colunas];
+        for (int i = 0; i < linhas; i++) {
+            for (int j = 0; j < colunas; j++) {
+                matriz[i][j] = valor;
             }
         }
+        return matriz;
+    }
+
+    public static void printMatriz(int[][] mat) {
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat[0].length; j++) {
+                System.out.print(mat[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public static int[][] multMatriz(int[][] mA, int[][] mB) {
+        int linhasA = mA.length;
+        int colunasA = mA[0].length;
+        int colunasB = mB[0].length;
+
+        int[][] result = new int[linhasA][colunasB];
+
+        for (int i = 0; i < linhasA; i++) {
+            for (int j = 0; j < colunasB; j++) {
+                for (int k = 0; k < colunasA; k++) {
+                    result[i][j] += mA[i][k] * mB[k][j];
+                }
+            }
+        }
+        return result;
     }
 
     public static void main(String[] args) {
-        int linhasA = 375;
-        int colunasA = 300;
-        int linhasB = 300;
-        int colunasB = 375;
-
-        // Cria matrizes aleatórias
-        double[][] matrizA = inicializacao(linhasA, colunasA);
-        double[][] matrizB = inicializacao(linhasB, colunasB);
-
-        double[][] matrizR = new double[linhasA][colunasB]; // Matriz para armazenar o resultado
-
-        int numThreads = 5; // Número de threads
-
-        int separacao = linhasA / numThreads; // Cálculo de quanto cada thread terá da matriz
+        int[][] mA = inicializacaoFixa(1250, 1000);
+        int[][] mB = inicializacaoFixa(1000, 1250);
 
         for (int i = 0; i < 5; i++) {
-            long startTime = System.currentTimeMillis();
-            Thread[] threads = new Thread[numThreads];
-
-            for (int j = 0; j < numThreads; j++) {
-                int linhaInicio = j * separacao;
-                int linhaFim = (j + 1) * separacao < linhasA ? (j + 1) * separacao : linhasA;
-
-                threads[j] = new Thread(() -> multMatriz(matrizA, matrizB, linhaInicio, linhaFim, matrizR));
-                threads[j].start();
-            }
-
-            try {
-                for (Thread thread : threads) {
-                    thread.join(); // Sincroniza as threads
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            long endTime = System.currentTimeMillis();
-
-            System.out.printf("Tempo de execução com %d threads: %.4f segundos%n", numThreads, (endTime - startTime) / 1000.0);
+            long startTime = System.nanoTime();
+            int[][] mC = multMatriz(mA, mB);
+            long endTime = System.nanoTime();
+            double elapsedTime = (endTime - startTime) / 1e9;
+            System.out.printf("Levou %.4f segundos para processar.%n", elapsedTime);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Sem_thread1 []";
     }
 }
